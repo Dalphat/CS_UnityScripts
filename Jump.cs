@@ -1,26 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(IsGrounded))]
+
 public class Jump : MonoBehaviour
 {
+    [SerializeField]
+    float forceY = 10f;
     Rigidbody rb;
-    IsGrounded ig;
-    [SerializeField] float force = 5f;
-    bool jump;//Jumps when true.
+    public bool canJump = true;//Default to true
+    // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponentInParent<Rigidbody>();
-        ig = GetComponent<IsGrounded>();
+        rb = GetComponent<Rigidbody>();
     }
-    private void Update() => jump = rb && ig.grounded && Input.GetButtonDown("Jump");
-    private void FixedUpdate()
+
+    // Update is called once per frame
+    void Update()
     {
-        if (rb && jump)
+        if (Input.GetButtonDown("Jump") && canJump)
         {
-            var vel = rb.velocity;
-            vel.y += force;
-            rb.velocity = vel;
+            Vector3 velocity = rb.velocity;
+            velocity.y = forceY;
+            rb.velocity = velocity;
         }
     }
 }
