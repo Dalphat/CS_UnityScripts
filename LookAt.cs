@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class LookAt : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    [SerializeField] Transform _target;
+
     void Start()
     {
-        if (!target)
+        if (!_target)
             Destroy(this);
     }
-    private void FixedUpdate() => transform.LookAt(target);
+    private void FixedUpdate() => transform.LookAt(_target);
 }
